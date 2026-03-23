@@ -1,7 +1,7 @@
 # Replace gateway.yourdomain.com with your actual domain.
 # Caddy will automatically obtain and renew TLS certificates via Let's Encrypt.
 
-gateway.yourdomain.com {
+digital-homestead.org, www.digital-homestead.org {
     reverse_proxy gateway:8000 {
         # flush_interval -1 is required for SSE — disables response buffering
         flush_interval -1
