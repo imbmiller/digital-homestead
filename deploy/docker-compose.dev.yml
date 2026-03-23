@@ -1,0 +1,24 @@
+# Development override — run with:
+#   docker compose -f docker-compose.yml -f docker-compose.dev.yml up
+# This skips Caddy and exposes gateway directly on port 8000.
+
+version: "3.9"
+
+services:
+  caddy:
+    profiles:
+      - disabled  # excludes caddy in dev
+
+  gateway:
+    ports:
+      - "8000:8000"
+    environment:
+      - DATABASE_URL=sqlite+aiosqlite:///./homestead_dev.db
+      - LOG_LEVEL=DEBUG
+    command: ["uvicorn", "gateway.main:app", "--host", "0.0.0.0", "--port", "8000", "--workers", "1", "--reload"]
+    volumes:
+      - ../gateway:/app  # live reload for local dev
+
+  orchestrator:
+    environment:
+      - LOG_LEVEL=DEBUG

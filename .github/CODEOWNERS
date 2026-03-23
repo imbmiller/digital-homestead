@@ -1,0 +1,13 @@
+# Only the orchestrator bot account can approve merges to main.
+# Humans may open PRs; only the orchestrator merges them.
+# Infrastructure files require an additional human reviewer.
+
+# Default owner for everything: orchestrator bot
+* @homestead-orchestrator
+
+# Infrastructure changes also require a human maintainer
+/deploy/ @homestead-orchestrator @imbmiller
+/.github/workflows/ @homestead-orchestrator @imbmiller
+/gateway/gateway/middleware/ @homestead-orchestrator @imbmiller
+/orchestrator/orchestrator/cycle.py @homestead-orchestrator @imbmiller
+/MANIFESTO.md @imbmiller

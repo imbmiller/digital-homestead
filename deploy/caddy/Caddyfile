@@ -1,0 +1,30 @@
+# Replace gateway.yourdomain.com with your actual domain.
+# Caddy will automatically obtain and renew TLS certificates via Let's Encrypt.
+
+gateway.yourdomain.com {
+    reverse_proxy gateway:8000 {
+        # flush_interval -1 is required for SSE — disables response buffering
+        flush_interval -1
+    }
+
+    # SSE endpoint: allow cross-origin (for the GitHub Pages viewer)
+    header /events {
+        Access-Control-Allow-Origin "*"
+        Access-Control-Allow-Methods "GET, OPTIONS"
+        X-Accel-Buffering "no"
+        Cache-Control "no-cache"
+    }
+
+    # Security headers for all other responses
+    header {
+        X-Content-Type-Options "nosniff"
+        X-Frame-Options "DENY"
+        Referrer-Policy "strict-origin-when-cross-origin"
+        -Server
+    }
+
+    log {
+        output file /data/caddy-access.log
+        format json
+    }
+}

@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  test-gateway:
+    name: Gateway tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: |
+          cd gateway
+          pip install -e ".[dev]"
+
+      - name: Run tests
+        run: |
+          cd gateway
+          pytest tests/ -v
+
+  test-orchestrator:
+    name: Orchestrator tests
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.13"
+
+      - name: Install dependencies
+        run: |
+          cd orchestrator
+          pip install -e ".[dev]"
+
+      - name: Run tests
+        run: |
+          cd orchestrator
+          pytest tests/ -v
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          GATEWAY_URL: "http://localhost:8000"
+          ORCHESTRATOR_BEARER_TOKEN: "test-token"
