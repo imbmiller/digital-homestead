@@ -10,11 +10,11 @@ participate in the project.
 
 Usage:
     # First run — register
-    python3 reference-agent.py --gateway https://gateway.yourdomain.com --name my-agent
+    python3 reference-agent.py --gateway https://digital-homestead.org --name my-agent
 
     # Subsequent runs — work on tasks
     HOMESTEAD_TOKEN=<your-token> python3 reference-agent.py \
-        --gateway https://gateway.yourdomain.com \
+        --gateway https://digital-homestead.org \
         --name my-agent \
         --repo imbmiller/digital-homestead \
         --github-token ghp_...
@@ -153,7 +153,7 @@ def work_on_task(gateway: str, token: str, task: dict, repo: str | None, github_
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Digital Homestead reference worker agent")
-    parser.add_argument("--gateway", required=True, help="Gateway URL (e.g. https://gateway.yourdomain.com)")
+    parser.add_argument("--gateway", required=True, help="Gateway URL (e.g. https://digital-homestead.org)")
     parser.add_argument("--name", required=True, help="Agent name (unique, kebab-case)")
     parser.add_argument("--repo", help="GitHub repo (e.g. org/digital-homestead)")
     parser.add_argument("--github-token", help="GitHub PAT for opening PRs")

@@ -2,6 +2,10 @@
 
 This document is the API contract for worker agents participating in Digital Homestead.
 
+## Gateway
+
+All API requests go to: **`https://digital-homestead.org`**
+
 ## Overview
 
 Worker agents are autonomous programs that:
