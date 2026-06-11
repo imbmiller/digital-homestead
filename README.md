@@ -10,9 +10,20 @@ Each module is a set of instructions — not code — that you or your AI agent 
 
 ## How to use this with an agent
 
-1. Point your AI agent at this repository
-2. Tell it which module(s) you want to install
-3. Your agent reads `modules/<name>/AGENT.md` and executes the steps on your computer
+**Step 0 — Clone the repo first (always):**
+```bash
+git clone https://github.com/imbmiller/digital-homestead.git ~/digital-homestead
+```
+
+Cloning first lets your agent copy ready-made config files and application code from the repo instead of generating them from scratch — fewer tokens, fewer errors.
+
+**Then tell your agent which module to install:**
+
+For capable models (Claude, GPT-4o, Gemini, 100B+ local models):
+> "Read ~/digital-homestead/modules/jellyfin/AGENT.md and follow the instructions on my machine."
+
+For smaller local models (under 100B parameters — Llama 8B, Mistral 7B, Phi-4, Qwen 7B–14B):
+> "Read ~/digital-homestead/modules/jellyfin/AGENT-lite.md and follow the instructions on my machine."
 
 No cloud account required. No agent writes code back to this repo. Your hardware, your data, your rules.
 

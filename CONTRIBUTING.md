@@ -10,11 +10,28 @@ Every module lives in `modules/<module-name>/` and must contain:
 
 ```
 modules/<module-name>/
-├── README.md      # Human-readable overview
-├── AGENT.md       # Agent-facing install and setup instructions
-└── <model>.md     # Model-specific notes (created only when feedback warrants it)
-                   # Examples: claude46.md, claude-opus4.md, gpt4o.md, gemini25.md
+├── README.md          # Human-readable overview
+├── AGENT.md           # Agent instructions — for capable models (100B+, hosted)
+├── AGENT-lite.md      # Agent instructions — for local models under 100B parameters
+├── docker-compose.yml # Ready-to-use compose file (if Docker-based)
+├── .env.example       # Environment variable template (if applicable)
+├── code/              # Full application source (for custom-coded modules only)
+└── <model>.md         # Model-specific workarounds (added when feedback warrants it)
+                       # Examples: claude46.md, claude-opus4.md, gpt4o.md, gemini25.md
 ```
+
+Compose files and code are included directly in the module so agents can copy files from the repo rather than generating them from scratch. This reduces token use and the chance of generation errors.
+
+### AGENT-lite.md standard
+
+`AGENT-lite.md` is designed for local models under 100B parameters. Key requirements:
+
+- **Assume the repo is cloned locally** — always reference files as `~/digital-homestead/modules/<name>/`
+- **One command per numbered step** — no chaining with `&&`, no pipes
+- **Copy files from the repo** — never ask the agent to generate config in a heredoc if the file is in the repo
+- **Explicit pass/fail check after every major step** — "Run X. Expected: Y. If you see anything else, stop and report."
+- **No inline conditionals** — separate optional sections (e.g. AMD GPU) into clearly labeled blocks the agent can decide to enter or skip
+- **Plain language** — "Run this command. It does X." not "Configure the nginx reverse proxy..."
 
 ---
 

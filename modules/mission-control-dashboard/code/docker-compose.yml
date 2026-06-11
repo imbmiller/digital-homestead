@@ -1,0 +1,16 @@
+services:
+  dashboard:
+    build: .
+    container_name: dashboard
+    restart: unless-stopped
+    network_mode: host
+    pid: host
+    env_file: .env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+      - /:/rootfs:ro
+      - /sys:/sys:ro
+      - /mnt/media:/mnt/media:ro
+      - /mnt/backup:/mnt/backup:ro
+      - /var/log:/var/log:ro
+      - /var/run/tailscale/tailscaled.sock:/var/run/tailscale/tailscaled.sock:ro

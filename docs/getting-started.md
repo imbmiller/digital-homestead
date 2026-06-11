@@ -15,31 +15,43 @@ No cloud account required. No registration. No telemetry.
 
 ---
 
-## How to use this repo with an agent
+## Step 0 — Clone the repo first (required)
 
-### Option 1 — Tell your agent which module to install
-
-The simplest approach: open a conversation with your agent and say:
-
-> "I want to install the Jellyfin module from the Digital Homestead repo at github.com/imbmiller/digital-homestead. Read the AGENT.md file for that module and follow the instructions on my machine."
-
-Your agent will:
-1. Fetch the relevant `AGENT.md` from this repository
-2. Execute each step on your machine
-3. Verify the installation worked
-4. Report back any issues
-
-### Option 2 — Clone the repo and point your agent at it locally
+Always start by cloning this repo locally. Many modules include ready-to-use config files and application code that your agent copies directly — this avoids generating files from scratch and reduces errors and token usage.
 
 ```bash
-git clone https://github.com/imbmiller/digital-homestead.git
+git clone https://github.com/imbmiller/digital-homestead.git ~/digital-homestead
 ```
 
-Then tell your agent:
+All module instructions assume the repo is at `~/digital-homestead`.
 
-> "Read ~/digital-homestead/modules/jellyfin/AGENT.md and follow the instructions."
+---
 
-This is useful if you want to review the instructions yourself before running them, or if you're offline.
+## How to use this repo with an agent
+
+### Capable models (100B+ parameters, or hosted models like Claude, GPT-4o, Gemini)
+
+Tell your agent:
+
+> "Read ~/digital-homestead/modules/jellyfin/AGENT.md and follow the instructions on my machine."
+
+Your agent will read the instructions, copy config files from the repo, execute steps, verify the result, and report any issues.
+
+### Smaller local models (under 100B parameters)
+
+Use the `AGENT-lite.md` file instead. These give one command at a time with explicit verification after each step, and avoid complex shell constructs that smaller models are more likely to get wrong.
+
+Tell your agent:
+
+> "Read ~/digital-homestead/modules/jellyfin/AGENT-lite.md and follow the instructions on my machine."
+
+### Which file to use?
+
+| Model type | File to use |
+|------------|-------------|
+| Claude, GPT-4o, Gemini | `AGENT.md` |
+| Llama 3.1 70B, Qwen 72B | Either — try `AGENT.md` first |
+| Llama 3.1 8B, Mistral 7B, Phi-4 14B, Qwen 7B–14B | `AGENT-lite.md` |
 
 ---
 

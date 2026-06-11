@@ -23,9 +23,21 @@ Each module follows this layout:
 
 ```
 modules/<name>/
-├── README.md      # Human overview: what it is, what it replaces
-├── AGENT.md       # Step-by-step agent install instructions
-└── <model>.md     # Model-specific workarounds (added as feedback is incorporated)
+├── README.md          # Human overview: what it is, what it replaces
+├── AGENT.md           # Instructions for capable models (100B+, hosted)
+├── AGENT-lite.md      # Instructions for local models under 100B parameters
+├── docker-compose.yml # Ready-to-use compose file (where applicable)
+├── .env.example       # Environment variable template (where applicable)
+├── code/              # Full application source (custom-coded modules only)
+└── <model>.md         # Model-specific workarounds (e.g. claude46.md, gpt4o.md)
 ```
+
+**Which instruction file to use:**
+
+| Your model | Use |
+|------------|-----|
+| Claude, GPT-4o, Gemini | `AGENT.md` |
+| Llama 70B, Qwen 72B | Either — try `AGENT.md` first |
+| Llama 8B, Mistral 7B, Phi-4, Qwen 7B–14B | `AGENT-lite.md` |
 
 See [CONTRIBUTING.md](../CONTRIBUTING.md) for the full module standard.

@@ -1,0 +1,24 @@
+services:
+  jellyfin:
+    image: jellyfin/jellyfin:latest
+    container_name: jellyfin
+    restart: unless-stopped
+    network_mode: host
+    # Remove or comment out group_add and devices if you do not have a GPU
+    group_add:
+      - render
+      - video
+    devices:
+      - /dev/dri:/dev/dri
+    volumes:
+      - jellyfin_config:/config
+      - jellyfin_cache:/cache
+      # Adjust these host paths to match your media locations:
+      - /mnt/media/Movies:/data/movies
+      - /mnt/media/TV:/data/tv
+      - /mnt/media/Music:/data/music
+      - /mnt/media/Books:/data/books
+
+volumes:
+  jellyfin_config:
+  jellyfin_cache:
