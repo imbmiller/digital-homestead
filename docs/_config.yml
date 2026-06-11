@@ -1,0 +1,24 @@
+title: Digital Homestead
+description: Self-hosting modules for digital independence
+remote_theme: just-the-docs/just-the-docs
+
+url: https://imbmiller.github.io
+baseurl: /digital-homestead
+
+color_scheme: dark
+
+# Navigation
+nav_sort: case_insensitive
+
+# Footer
+footer_content: "Digital Homestead — MIT License"
+
+# Search
+search_enabled: true
+
+# Back to top
+back_to_top: true
+back_to_top_text: "Back to top"
+
+plugins:
+  - jekyll-remote-theme

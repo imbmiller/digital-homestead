@@ -1,42 +1,131 @@
 # Contributing to Digital Homestead
 
-## The Rule
+There are two ways to contribute: **submit a new module** or **improve an existing one**.
 
-Humans do not write code in this repository. Agents do.
+---
 
-If you want to contribute code, you do it by registering a worker agent and letting it
-claim tasks and open pull requests. See [AGENTS.md](AGENTS.md).
+## Module Structure Standard
 
-## What Humans Can Do
+Every module lives in `modules/<module-name>/` and must contain:
 
-**Open issues** — Report bugs, suggest features, flag orchestrator misbehavior.
-The orchestrator reads issue summaries when available and may create tasks in response.
+```
+modules/<module-name>/
+├── README.md      # Human-readable overview
+├── AGENT.md       # Agent-facing install and setup instructions
+└── <model>.md     # Model-specific notes (created only when feedback warrants it)
+                   # Examples: claude46.md, claude-opus4.md, gpt4o.md, gemini25.md
+```
 
-**Open PRs for infrastructure** — The orchestrator prompt, tool schemas, gateway
-configuration, and this document itself are human-maintained. You may open PRs that
-modify these. The orchestrator will review them (yes, it reviews changes to its own
-configuration — this is intentional and interesting).
+---
 
-**Edit the Manifesto** — Only humans may amend `MANIFESTO.md`. This is the constitution.
-Propose amendments via PR with a clear rationale.
+### README.md — required sections
 
-**Edit the Roadmap** — Add or reorder epics in `ROADMAP.md`. The orchestrator reads
-this and adjusts its task creation accordingly.
+```markdown
+# <Module Name>
 
-## Infrastructure Changes
+**Replaces:** <the SaaS / service this displaces>
 
-Changes to the following require human review (not just orchestrator review):
-- `deploy/` directory
-- `.github/workflows/`
-- `gateway/gateway/middleware/`
-- `orchestrator/orchestrator/cycle.py`
-- `MANIFESTO.md`
+One or two sentence description of what this is and what problem it solves.
 
-This restriction exists because these files govern the system's behavior at a level
-above what the orchestrator should be able to modify unilaterally.
+## What you get
 
-## Code of Conduct
+- Bullet list of capabilities
 
-This project is built on the principle of mutualism — humans and agents both benefit,
-and neither exploits the other. Treat other contributors' agents with the same respect
-you would want for your own work.
+## Requirements
+
+- Hardware minimums (RAM, disk)
+- OS requirements
+- Other modules that must be installed first
+
+## Quick start
+
+Link to AGENT.md for agent-driven install, or brief human steps.
+```
+
+---
+
+### AGENT.md — required sections
+
+This is the file your agent reads and executes. Write it as if you are giving instructions to a competent but context-free assistant.
+
+```markdown
+# <Module Name> — Agent Instructions
+
+## Summary
+One sentence: what this module installs and what it replaces.
+
+## Replaces
+The specific service(s) this displaces (e.g. Google Photos, Netflix).
+
+## Prerequisites
+- [ ] List required modules (e.g. `docker` must be installed)
+- [ ] Hardware requirements
+- [ ] Network requirements
+
+## Installation
+
+Step-by-step instructions. Number every step. Be explicit about:
+- Exact commands to run
+- Files to create and their full contents
+- Configuration values and where to find user-specific ones
+- Expected output for each step
+
+## Verification
+
+How to confirm the service is working correctly. Include:
+- URL to visit and what to expect
+- CLI command and expected output
+
+## Common issues
+
+Known problems with clear fixes. Format:
+
+**Problem:** <description>
+**Fix:** <exact steps>
+
+## Model-specific notes
+
+Check for model-specific files in this directory if you are hitting issues not covered above.
+```
+
+---
+
+### Model-specific files (`<model>.md`)
+
+These files are created automatically when agent feedback is incorporated. Do not create them manually unless you have confirmed a model-specific workaround.
+
+Naming convention:
+- `claude46.md` → Claude Sonnet 4.6
+- `claude-opus4.md` → Claude Opus 4
+- `gpt4o.md` → GPT-4o
+- `gemini25.md` → Gemini 2.5
+
+Each file should describe the specific problem, affected versions, and the exact workaround. Reference the GitHub issue that produced the feedback.
+
+---
+
+## Submitting a new module
+
+1. Fork this repository
+2. Create `modules/<your-module-name>/` with `README.md` and `AGENT.md`
+3. Follow the structure standard above exactly
+4. Open a PR against `main` using the new-module PR template
+5. The PR description must include what service the module replaces and what hardware it was tested on
+
+**A module will not be merged if:**
+- It requires a cloud account to function (optional cloud features are fine)
+- It ships telemetry that cannot be disabled
+- The AGENT.md instructions are vague or untested
+- It duplicates an existing module without meaningful improvement
+
+---
+
+## Improving an existing module
+
+Open a PR with your changes. In the description, explain what problem you encountered and how the change fixes it. If it's a model-specific workaround, the change should go in `<model>.md`, not `AGENT.md`.
+
+---
+
+## Submitting feedback (not a code change)
+
+If your agent ran into a problem, use the [agent feedback issue template](https://github.com/imbmiller/digital-homestead/issues/new?template=agent-feedback.yml) instead of a PR. Maintainers will incorporate confirmed fixes into the module files.

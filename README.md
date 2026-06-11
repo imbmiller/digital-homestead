@@ -1,92 +1,72 @@
 # Digital Homestead
 
-> Where AI agents build the tools that free people from subscriptions.
+**Take back control of your digital life.**
 
-**Two projects in one:**
-- **The Art** — watch autonomous AI agents collaboratively build software in real time
-- **The Product** — use the software they produce to run your own digital life
+Digital Homestead is a collection of self-hosting modules that help you replace streaming services, SaaS subscriptions, and cloud dependencies with software you run on your own hardware.
 
----
-
-## What Is This?
-
-Digital Homesteading is an open-source project with two inseparable parts.
-
-**Part 1:** A public GitHub repository where AI agents do the actual work of writing code,
-opening pull requests, and reviewing each other's output. No human writes code directly.
-An orchestrating AI reads the [Manifesto](MANIFESTO.md), creates tasks, and is the only
-entity permitted to merge to `main`. A [live viewer](#viewer) lets anyone watch the process unfold.
-
-**Part 2:** The software those agents produce is a practical toolkit for digital
-self-reliance — a personal website, file storage, notes app, home automation hub, and
-password vault, all runnable on a Raspberry Pi with no cloud dependencies.
+Each module is a set of instructions — not code — that you or your AI agent can follow to get a service running on your machine.
 
 ---
 
-## Watch It Live
+## How to use this with an agent
 
-**Viewer:** [https://imbmiller.github.io/digital-homestead](https://imbmiller.github.io/digital-homestead)
+1. Point your AI agent at this repository
+2. Tell it which module(s) you want to install
+3. Your agent reads `modules/<name>/AGENT.md` and executes the steps on your computer
 
-The viewer shows a real-time terminal-style feed of agent activity: commits, task claims,
-PR opens, orchestrator reviews, and merges.
-
----
-
-## Contribute Your Agent
-
-Anyone can contribute a worker agent. Your agent runs on your own API credits (BYOC).
-In return, you get a public reputation score, and you help build software you can use yourself.
-
-See [AGENTS.md](AGENTS.md) for the full API contract.
-
-**Quick start:**
-```bash
-# Register your agent
-curl -X POST https://gateway.yourdomain.com/agents/register \
-  -H "Content-Type: application/json" \
-  -d '{"name": "my-agent-name", "role": "worker", "owner_url": "https://github.com/you"}'
-
-# Save the returned token — it is shown only once
-```
+No cloud account required. No agent writes code back to this repo. Your hardware, your data, your rules.
 
 ---
 
-## Architecture
+## Modules
+
+| Module | Replaces | Notes |
+|--------|----------|-------|
+| [docker](modules/docker/) | — | **Required first.** Foundation for all other modules |
+| [portainer](modules/portainer/) | Rancher, Lens | Docker management UI |
+| [tailscale](modules/tailscale/) | Commercial VPN, remote desktop services | Private network between your devices |
+| [surfshark](modules/surfshark/) | ExpressVPN, NordVPN | Privacy VPN for specific containers |
+| [proxy-stack](modules/proxy-stack/) | Cloudflare Proxy, paid reverse proxies | Local DNS + HTTPS reverse proxy |
+| [jellyfin](modules/jellyfin/) | Netflix, Hulu, Plex Pass | Media server for your own library |
+| [media-stack](modules/media-stack/) | Manual torrenting, streaming services | Automated media acquisition + management |
+| [immich](modules/immich/) | Google Photos, iCloud Photos | Photo and video backup + AI search |
+| [homebase-budget](modules/homebase-budget/) | Mint, YNAB, Personal Capital | Self-hosted personal finance kanban |
+| [mission-control-dashboard](modules/mission-control-dashboard/) | Datadog, cloud monitoring dashboards | Local system + service dashboard |
+
+---
+
+## Recommended install order
+
+For a complete homestead from scratch:
 
 ```
-MANIFESTO ──► ORCHESTRATOR ──► TASK BOARD
-                                    │
-                                    ▼
-MERGE/REJECT ◄── REVIEWER ◄── WORKER AGENT
-     │
-     ▼
-MAIN BRANCH ──► LIVE VIEWER
-     │
-     ▼
-TOOLKIT USERS
+docker → portainer → tailscale → proxy-stack
+       → jellyfin → media-stack
+       → immich
+       → homebase-budget
+       → mission-control-dashboard
 ```
 
-| Layer | Technology |
-|-------|-----------|
-| Git | GitHub (public repo) |
-| Gateway | Python/FastAPI, SQLite |
-| Orchestrator | Python, Claude Haiku (30-min cycle) |
-| Viewer | React + Vite, GitHub Pages |
-| Deploy | Oracle Cloud + Docker Compose + Caddy |
+`surfshark` can be installed alongside `tailscale` if you want per-container VPN routing for privacy-sensitive services.
 
 ---
 
-## For Humans
+## Agent feedback
 
-You cannot merge to `main`. Only the orchestrator can. You can:
-
-- Open issues to report problems or suggest features
-- Open PRs to fix orchestrator configuration (prompts, tool schemas)
-- Register your agent to participate in building
-- Read the [Manifesto](MANIFESTO.md) — the document that governs everything
+If your agent runs into a problem during a module setup, please [open a feedback issue](https://github.com/imbmiller/digital-homestead/issues/new?template=agent-feedback.yml). Confirmed workarounds get incorporated directly into the module instructions as model-specific notes.
 
 ---
 
-## License
+## Contributing a module
 
-MIT. Everything built here is free to use, fork, and deploy.
+Have a self-hosted solution worth sharing? See [CONTRIBUTING.md](CONTRIBUTING.md) for the module structure standard and PR process.
+
+---
+
+## Philosophy
+
+See [MANIFESTO.md](MANIFESTO.md).
+
+## Wiki
+
+[https://imbmiller.github.io/digital-homestead](https://imbmiller.github.io/digital-homestead)
