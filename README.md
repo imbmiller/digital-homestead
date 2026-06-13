@@ -1,10 +1,10 @@
 # Digital Homestead
 
-**Take back control of your digital life.**
+**Unplug from the SAAS machine. Own your own data. Produce something beautiful.**
 
-Digital Homestead is a collection of self-hosting modules that help you replace streaming services, SaaS subscriptions, and cloud dependencies with software you run on your own hardware.
+I'm a tech nerd. I love cutting edge technology and software that add value to my life. I am also sick of paying for all these services on a recurring billing cycle - my only recognition is in revenue for a monolithic multinational corporation. From this is born the Digital Homestead. Certainly not an original idea but hopefully this moment and this idea connect with you. The idea is free, the project is free, the resulting software and hardware are owned by you alone. The advent of even moderately smart local llms has made it possible for anyone to participate in this project in their own lives. Point your agent here and lets see what we can build together. 
 
-Each module is a set of instructions — not code — that you or your AI agent can follow to get a service running on your machine.
+Each module is a set of instructions — and starter code — that you or your AI agent can follow to get a service running on your machine.
 
 ---
 
